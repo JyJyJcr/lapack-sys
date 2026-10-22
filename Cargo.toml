@@ -17,5 +17,13 @@ readme = "README.md"
 categories = ["external-ffi-bindings", "science"]
 keywords = ["linear-algebra"]
 
+[features]
+
+lp64 = []  # force lp64
+ilp64 = [] # force ilp64
+
+blas-src = ["dep:blas-src"]
+
 [dependencies]
 libc = "0.2"
+blas-src = { git = "https://github.com/JyJyJcr/blas-src.git", branch = "ilp64-draft", optional = true }
