@@ -10,7 +10,8 @@
 
 extern crate libc;
 
-use core::ffi::{c_char, c_int};
+use self::lapack_int as c_int;
+use core::ffi::c_char;
 
 use libc::size_t;
 
@@ -22,7 +23,12 @@ pub type c_float_complex = __BindgenComplex<f32>;
 
 pub type lapack_complex_double = c_double_complex;
 pub type lapack_complex_float = c_float_complex;
+#[cfg(not(lapack_int_64))]
 pub type lapack_int = i32;
+#[cfg(lapack_int_64)]
+pub type lapack_int = i64;
 pub type lapack_logical = lapack_int;
+
+include!(concat!(env!("OUT_DIR"), "/lapack_func.rs"));
 
 include!("lapack.rs");
